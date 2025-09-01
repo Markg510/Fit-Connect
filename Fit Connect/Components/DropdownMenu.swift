@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DropdownMenu<T: Hashable & CaseIterable>: View {
+struct DropdownMenu<T: Hashable & CaseIterable & RawRepresentable>: View {
     enum ChangeOptions { case open, close }
     // Passed Properties
     @Binding var showOptions: Bool
@@ -28,7 +28,7 @@ struct DropdownMenu<T: Hashable & CaseIterable>: View {
             VStack(spacing: 0) {
                 // Main Button
                 HStack {
-                    Text(selected != nil ? String(describing: selected!).capitalized : "Select")
+                    Text(selected != nil ? String(describing: selected!.rawValue).capitalized : "Select")
                     
                     Spacer()
                     
@@ -55,7 +55,7 @@ struct DropdownMenu<T: Hashable & CaseIterable>: View {
                 if showOptions {
                     VStack {
                         ForEach(Array(T.allCases), id: \.self) { option in
-                            Text(String(describing: option).capitalized)
+                            Text(String(describing: option.rawValue).capitalized)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                                 .contentShape(.rect)
                                 .foregroundStyle(selected != option ? .textSecondary : .white)
@@ -79,8 +79,8 @@ struct DropdownMenu<T: Hashable & CaseIterable>: View {
     }
 }
 
-enum abc: Hashable, CaseIterable { case a, b, c }
-enum bcd: Hashable, CaseIterable { case b, c, d }
+enum abc: String, Hashable, CaseIterable { case a, b, c }
+enum bcd: String, Hashable, CaseIterable { case b, c, d }
 #Preview {
     @Previewable @State var selected: abc? = nil
     @Previewable @State var open: bcd? = nil

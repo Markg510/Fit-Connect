@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Environment(GeneralVM.self) private var gvm
+    
     @State private var email = ""
     @State private var password = ""
     
@@ -15,47 +17,30 @@ struct LoginView: View {
         VStack {
             Spacer()
             
-            VStack {
-                Image(.logoWhite)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 150)
-                    .shadow(radius: 2)
+            AuthenticationHeader(isLogin: true)
+            
+            AppTextField(text: $email, placeholder: "\("account@email.com")", label: "Email")
+                .padding(.bottom)
+            
+            AppTextField(text: $password, placeholder: "**********", isSecure: true, label: "Password")
+                .padding(.bottom)
+                .padding(.bottom, 8)
+            
+            Button {
                 
-                Text("Log In")
-                    .foregroundStyle(.white)
-                    .fontWeight(.medium)
-                    .font(.title2)
+            } label: {
+                Text("Next")
+                    .padding()
                     .frame(maxWidth: .infinity, alignment: .center)
-                
-                Text("Enter your email and password")
-                    .foregroundStyle(.textTertiary)
-                    .padding(.bottom)
-                
-                AppTextField(text: $email, placeholder: "\("account@email.com")", label: "Email")
-                    .padding(.bottom)
-                
-                AppTextField(text: $password, placeholder: "**********", isSecure: true, label: "Password")
-                    .padding(.bottom)
-                    .padding(.bottom, 8)
-                
-                Button {
-                    
-                } label: {
-                    Text("Log In")
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.colorBackground, in: .rect(cornerRadius: 16))
-                        .foregroundStyle(.white)
-                }.padding(.bottom, 8)
-                
-                Text("Forgot Password")
+                    .background(.accent, in: .rect(cornerRadius: 16))
                     .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(.trailing, 8)
-                    .padding(.bottom)
-            }.padding()
-                .background(.accent, in: .rect(cornerRadius: 16))
+            }.padding(.bottom, 8)
+            
+            Text("Forgot Password")
+                .foregroundStyle(.colorDestructive)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 8)
+                .padding(.bottom)
             
             Spacer()
         }.padding()
@@ -65,4 +50,5 @@ struct LoginView: View {
 
 #Preview {
     LoginView()
+        .environment(GeneralVM())
 }

@@ -22,6 +22,7 @@ struct AppTextField: View {
             if isSecure {
                 SecureField(placeholder, text: $text)
                     .padding(12)
+                    .background(.colorPrimary, in: .rect(cornerRadius: 16))
                     .shadow(radius: 2)
             } else {
                 TextField(placeholder, text: $text)

@@ -8,34 +8,43 @@
 import SwiftUI
 
 struct SignUpView: View {
-    enum Roles {
+    @Environment(GeneralVM.self) private var gvm
+    
+    enum Roles: String, Hashable, CaseIterable {
         case client, coach
     }
     
     @State private var email = ""
     @State private var name = ""
     @State private var number = ""
-    @State private var role: Roles = .client
+    @State private var role: Roles? = nil
     @State private var password = ""
+    
+    @State private var showRolesOption = false
     
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack {
-                Image(.logoWhite)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 150)
-                    .shadow(radius: 2)
+                AuthenticationHeader()
                 
-                Text("Sign Up")
+                Text("Profile Picture")
                     .foregroundStyle(.white)
-                    .fontWeight(.medium)
-                    .font(.title2)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                Text("Please Enter Your Details")
-                    .foregroundStyle(.textTertiary)
-                    .padding(.bottom)
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Text("Profile Picture")
+                        
+                        Spacer()
+                        
+                        Image(systemName: "chevron.right")
+                    }.padding(12)
+                        .background(.colorPrimary)
+                        .clipShape(.rect(cornerRadius: 16))
+                        .foregroundStyle(.textSecondary)
+                }
                 
                 AppTextField(text: $email, placeholder: "\("account@email.com")", label: "Email")
                     .padding(.bottom)
@@ -46,10 +55,12 @@ struct SignUpView: View {
                 AppTextField(text: $number, placeholder: "01234567890", label: "Phone Number")
                     .padding(.bottom)
                 
-                AppTextField(text: $name, placeholder: "John Doe", label: "Name")
-                    .padding(.bottom)
+                DropdownMenu(showOptions: $showRolesOption, selected: $role, label: "Role") { request in
+                    showRolesOption = request == .open ? true : false
+                }.padding(.bottom)
                 
                 AppTextField(text: $password, placeholder: "**********", isSecure: true, label: "Password")
+                    .zIndex(-10)
                     .padding(.bottom)
                     .padding(.bottom, 8)
                 
@@ -58,7 +69,7 @@ struct SignUpView: View {
                     .padding(.bottom, 8)
                 
                 Button {
-                    
+                    gvm.navPath.append(role == .client ? "SignUpClient" : "SignUpCoach1")
                 } label: {
                     Text("Next")
                         .padding()
@@ -66,9 +77,6 @@ struct SignUpView: View {
                         .background(.accent, in: .rect(cornerRadius: 16))
                         .foregroundStyle(.white)
                 }.padding(.bottom, 8)
-                
-                
-                    .background(.colorPrimary, in: .rect(cornerRadius: 16))
             }
         }
         .padding()
@@ -78,6 +86,6 @@ struct SignUpView: View {
 
 #Preview {
     SignUpView()
-    
+        .environment(GeneralVM())
 }
 

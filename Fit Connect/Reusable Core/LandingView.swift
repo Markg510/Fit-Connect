@@ -8,66 +8,89 @@
 import SwiftUI
 
 struct LandingView: View {
+    @State private var gvm = GeneralVM()
+    
     var body: some View {
-        VStack {
-            Spacer()
-            
-            Image(.logoWhite)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-            
-            Spacer()
-            
-            
+        NavigationStack(path: $gvm.navPath) {
             VStack {
-                Text("Fit Connect")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.white)
+                Spacer()
                 
-                Text("Your Choice, Your Coach")
-                    .foregroundStyle(.textTertiary)
-                    .padding(.bottom)
-                    .padding(.bottom)
-
-                Button {
-                    
-                } label: {
-                    Label("Create Account", systemImage: "person.crop.circle.fill")
-                        .fontWeight(.medium)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.white, in: .rect(cornerRadius: 16))
-                        .foregroundStyle(.colorBackground)
-                }.padding(.bottom, 8)
+                Image(.logoWhite)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                 
-                Divider()
-                    .overlay(.textTertiary)
-                    .padding([.bottom, .horizontal], 8)
+                Spacer()
                 
-                Button {
-                    
-                } label: {
-                    Label("Sign in with Apple", systemImage: "apple.logo")
-                        .fontWeight(.medium)
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.colorBackground, in: .rect(cornerRadius: 16))
+                VStack {
+                    Text("Fit Connect")
+                        .font(.title)
+                        .fontWeight(.bold)
                         .foregroundStyle(.white)
-                }.padding(.bottom, 8)
-
-                
-                Button("Log in using Email") {
                     
-                }.foregroundStyle(.textTertiary)
+                    Text("Your Choice, Your Coach")
+                        .font(.callout)
+                        .foregroundStyle(.textTertiary)
+                        .padding(.bottom)
+                        .padding(.bottom)
+
+                    Button {
+                        gvm.navPath.append("Sign Up")
+                    } label: {
+                        Label("Create Account", systemImage: "person.crop.circle.fill")
+                            .fontWeight(.medium)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .background(.white, in: .rect(cornerRadius: 16))
+                            .foregroundStyle(.colorBackground)
+                    }.padding(.bottom, 8)
+                    
+                    Divider()
+                        .overlay(.textTertiary)
+                        .padding([.bottom, .horizontal], 8)
+                    
+                    Button {
+                        
+                    } label: {
+                        Label("Sign in with Apple", systemImage: "apple.logo")
+                            .fontWeight(.medium)
+                            .padding()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .background(.colorBackground, in: .rect(cornerRadius: 16))
+                            .foregroundStyle(.white)
+                    }.padding(.bottom, 8)
+
+                    
+                    Button("Log in using Email") {
+                        gvm.navPath.append("Login")
+                    }.foregroundStyle(.textTertiary)
+                }.padding()
+                    .padding(.vertical, 8)
+                    .background(.accent, in: .rect(cornerRadius: 16))
             }.padding()
-                .padding(.vertical, 8)
-                .background(.accent, in: .rect(cornerRadius: 16))
-        }.padding()
-            .background(.colorBackground)
+                .background(.colorBackground)
+                .navigationDestination(for: String.self) { str in
+                    if str == "Login" {
+                        LoginView()
+                            .environment(gvm)
+                    }else if str == "Sign Up" {
+                        SignUpView()
+                            .environment(gvm)
+                    } else if str == "SignUpClient" {
+                        ClientDetails2View()
+                            .environment(gvm)
+                    } else if str == "SignUpCoach1" {
+                        CoachDetails2View()
+                            .environment(gvm)
+                    } else if str == "SignUpCoach2" {
+                        CoachCertificationsView()
+                            .environment(gvm)
+                    }
+                }
+        }
     }
 }
 
 #Preview {
     LandingView()
+    
 }

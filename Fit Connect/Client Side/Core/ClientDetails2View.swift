@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct ClientSignUpPart2View: View {
-    enum Gender: CaseIterable, Hashable {
+struct ClientDetails2View: View {
+    @Environment(GeneralVM.self) private var gvm
+    
+    enum Gender: String, CaseIterable, Hashable {
         case male, female
     }
     
@@ -18,11 +20,11 @@ struct ClientSignUpPart2View: View {
         case generalFitness = "General Fitness"
     }
     
-    enum FitnessLevel: CaseIterable, Hashable {
+    enum FitnessLevel: String, CaseIterable, Hashable {
         case beginner, intermediate, advanced
     }
     
-    enum PreferredTraining: CaseIterable, Hashable {
+    enum PreferredTraining: String, CaseIterable, Hashable {
         case gym, home, outdoor
     }
     
@@ -86,8 +88,6 @@ struct ClientSignUpPart2View: View {
                 
                 HStack {
                     AppTextField(text: $age, placeholder: "16", label: "Age")
-                        .foregroundStyle(.white)
-                        .frame(maxWidth: .infinity, alignment: .leading)
                     
                     DropdownMenu(showOptions: $showGenderOptions, selected: $gender, label: "Gender") { request in
                         if openDropdownMenu == nil && request == .open {
@@ -229,5 +229,6 @@ struct ClientSignUpPart2View: View {
 }
 
 #Preview {
-    ClientSignUpPart2View()
+    ClientDetails2View()
+        .environment(GeneralVM())
 }
