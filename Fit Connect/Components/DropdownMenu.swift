@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct DropdownMenu<T: Hashable & CaseIterable>: View {
+    enum ChangeOptions { case open, close }
     // Passed Properties
     @Binding var showOptions: Bool
     @Binding var selected: T?
     var height: CGFloat = 55
     let label: String
+    let requestChangeDropdown: (ChangeOptions) -> ()
     
     // View Properties
     @State private var measuredHeight: CGFloat = 0
@@ -45,7 +47,7 @@ struct DropdownMenu<T: Hashable & CaseIterable>: View {
                     }
                     .onTapGesture {
                         withAnimation(.snappy) {
-                            showOptions.toggle()
+                            requestChangeDropdown(showOptions ? .close : .open)
                         }
                     }
                 
@@ -60,7 +62,7 @@ struct DropdownMenu<T: Hashable & CaseIterable>: View {
                                 .onTapGesture {
                                     withAnimation(.snappy) {
                                         selected = option
-                                        showOptions.toggle()
+                                        requestChangeDropdown(showOptions ? .close : .open)
                                     }
                                 }
                             
@@ -78,7 +80,10 @@ struct DropdownMenu<T: Hashable & CaseIterable>: View {
 }
 
 enum abc: Hashable, CaseIterable { case a, b, c }
+enum bcd: Hashable, CaseIterable { case b, c, d }
 #Preview {
     @Previewable @State var selected: abc? = nil
-    DropdownMenu(showOptions: .constant(false), selected: $selected, label: "Start")
+    @Previewable @State var open: bcd? = nil
+    
+    DropdownMenu(showOptions: .constant(false), selected: $selected, label: "Start") { _ in }
 }
