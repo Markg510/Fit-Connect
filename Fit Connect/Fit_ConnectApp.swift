@@ -11,7 +11,7 @@ import SwiftUI
 struct Fit_ConnectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ClientSignUpPart2View()
         }
     }
 }
