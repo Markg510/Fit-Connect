@@ -7,21 +7,21 @@
 
 import SwiftUI
 
+enum CoachExperience: String, CaseIterable, Hashable {
+    case lessThanYear = "Less than a Year"
+    case oneThreeYears = "1 to 3 Years"
+    case threeFiveYears = "3 to 5 Years"
+    case fivePlusYears = "5+ Years"
+}
+
+enum WorkoutTypes: String, CaseIterable, Hashable {
+    case weightLoss = "Weight Loss"
+    case buildMuscle = "Build Muscle", strength
+    case generalFitness = "General Fitness"
+}
+
 struct CoachDetails2View: View {
     @Environment(GeneralVM.self) private var gvm
-    
-    enum Experience: String, CaseIterable, Hashable {
-        case lessThanYear = "Less than a Year"
-        case oneThreeYears = "1 to 3 Years"
-        case threeFiveYears = "3 to 5 Years"
-        case fivePlusYears = "5+ Years"
-    }
-    
-    enum Speciality: String, CaseIterable, Hashable {
-        case weightLoss = "Weight Loss"
-        case buildMuscle = "Build Muscle", strength
-        case generalFitness = "General Fitness"
-    }
     
     enum DropdownOptions {
         case experience, speciality
@@ -29,8 +29,8 @@ struct CoachDetails2View: View {
     
     // View Properties
     @State private var gymLocation = ""
-    @State private var speciality: Speciality?
-    @State private var experience: Experience?
+    @State private var speciality: WorkoutTypes?
+    @State private var experience: CoachExperience?
     @State private var introduction = ""
     
     @State private var openDropdownMenu: DropdownOptions? = nil
@@ -109,14 +109,8 @@ struct CoachDetails2View: View {
                     .padding(.bottom)
                     .padding(.bottom)
                 
-                Button {
+                AppButton(title: "Next", img: "", priority: .high) {
                     gvm.navPath.append("SignUpCoach2")
-                } label: {
-                    Text("Next")
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.accent.gradient, in: .rect(cornerRadius: 16))
-                        .foregroundStyle(.white)
                 }.padding(.bottom, 8)
                     .zIndex(-250)
             }

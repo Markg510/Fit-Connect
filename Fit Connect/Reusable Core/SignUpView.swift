@@ -68,14 +68,8 @@ struct SignUpView: View {
                     .padding(.bottom)
                     .padding(.bottom, 8)
                 
-                Button {
+                AppButton(title: "Next", img: "", priority: .high) {
                     gvm.navPath.append(role == .client ? "SignUpClient" : "SignUpCoach1")
-                } label: {
-                    Text("Next")
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.accent, in: .rect(cornerRadius: 16))
-                        .foregroundStyle(.white)
                 }.padding(.bottom, 8)
             }
         }

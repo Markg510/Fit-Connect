@@ -84,6 +84,18 @@ struct LandingView: View {
                     } else if str == "SignUpCoach2" {
                         CoachCertificationsView()
                             .environment(gvm)
+                    } else if str == "ChooseCoach" {
+                        ChooseCoachView()
+                            .environment(gvm)
+                    } else if str == "CoachCertification" {
+                        CoachCertificationsView()
+                            .environment(gvm)
+                    } else if str == "ClientHome" {
+                        ClientHomeView()
+                            .environment(gvm)
+                    } else if str == "CoachHome" {
+                        CoachHomeView()
+                            .environment(gvm)
                     }
                 }
         }

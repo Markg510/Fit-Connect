@@ -22,28 +22,15 @@ struct CoachCertificationsView: View {
             
             certificateItem(text: $certificate1Name, placeholder: "Global Fitness Association", label: "Certificate 3")
             
-            Button {
+            AppButton(title: "Add Another Certificate", img: "", priority: .high) {
                 
-            } label: {
-                Text("Add Another Certificate")
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(.accent.gradient, in: .rect(cornerRadius: 16))
-                    .foregroundStyle(.white)
             }.padding(.bottom, 8)
                 .padding(.top)
                 .padding(.top)
             
-            Button {
-                
-            } label: {
-                Text("Create Account")
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(.colorPrimary, in: .rect(cornerRadius: 16))
-                    .foregroundStyle(.white)
-            }.padding(.bottom, 8)
-            
+            AppButton(title: "Create Account", img: "", priority: .low) {
+                gvm.navPath.append("CoachHome")
+            }            
         }.padding()
             .background(.colorBackground)
         

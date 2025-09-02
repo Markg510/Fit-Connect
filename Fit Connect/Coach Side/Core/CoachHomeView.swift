@@ -11,8 +11,13 @@ struct CoachHomeView: View {
     enum clientStatus {
         case normal, needsUpdate, new
     }
+    
+    @Environment(GeneralVM.self) private var gvm
+    
     var body: some View {
         VStack {
+            Spacer()
+            
             dashboard()
             
             yourClients()
@@ -30,37 +35,37 @@ struct CoachHomeView: View {
     func dashboard() -> some View {
         HStack {
             VStack {
-                HStack {
-                    Text("23")
-                        .font(.title)
-                    
-                    Image(systemName: "arrow.down")
-                        .font(.callout)
-                        .foregroundStyle(.colorDestructive)
-                }
+                Text("23")
+                    .font(.title)
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: "arrow.down")
+                            .font(.callout)
+                            .foregroundStyle(.colorDestructive)
+                            .alignmentGuide(.trailing) { $0[.leading] }
+                    }
                 
                 Text("Total \nClients")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.textSecondary)
-                    .font(.title2)
+                    .font(.title3)
             }
             
             Spacer()
             
             VStack {
-                HStack {
-                    Text("10")
-                        .font(.title)
-                    
-                    Image(systemName: "arrow.up")
-                        .font(.callout)
-                        .foregroundStyle(.colorConstructive)
-                }
+                Text("10")
+                    .font(.title)
+                    .overlay(alignment: .trailing) {
+                        Image(systemName: "arrow.up")
+                            .font(.callout)
+                            .foregroundStyle(.colorConstructive)
+                            .alignmentGuide(.trailing) { $0[.leading] }
+                    }
                 
                 Text("New \nClients")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.textSecondary)
-                    .font(.title2)
+                    .font(.title3)
             }
             
             Spacer()
@@ -72,7 +77,7 @@ struct CoachHomeView: View {
                 Text("Total \nClients")
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.textSecondary)
-                    .font(.title2)
+                    .font(.title3)
             }
         }.padding()
             .background(.colorPrimary)
@@ -122,54 +127,14 @@ struct CoachHomeView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         
         HStack {
-            Button {
+            BoxButton(title: "Workouts", img: "dumbbell.fill", description: "Saved Workouts") {
                 
-            } label: {
-                VStack {
-                    Image(systemName: "dumbbell.fill")
-                        .font(.largeTitle)
-                        .foregroundStyle(.accent)
-                        .padding(.bottom, 4)
-                    
-                    Text("Workouts")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                    
-                    Text("Your Saved Content")
-                        .foregroundStyle(.textSecondary)
-                        .font(.callout)
-                }.foregroundStyle(.white)
-                    .padding()
-                    .padding(.vertical, 7)
-                    .background(.colorPrimary)
-                    .clipShape(.rect(cornerRadius: 16))
-                    .shadow(radius: 2)
             }
             
-            Button {
+            BoxButton(title: "Meals", img: "carrot.fill", description: "Saved Meals") {
                 
-            } label: {
-                VStack {
-                    Image(systemName: "carrot.fill")
-                        .font(.largeTitle)
-                        .foregroundStyle(.accent)
-                        .rotationEffect(.degrees(13))
-                        .padding(.bottom, 4)
-                    
-                    Text("Workouts")
-                        .font(.title3)
-                        .fontWeight(.medium)
-                    
-                    Text("Your Saved Content")
-                        .foregroundStyle(.textSecondary)
-                        .font(.callout)
-                }.foregroundStyle(.white)
-                    .padding()
-                    .background(.colorPrimary)
-                    .clipShape(.rect(cornerRadius: 16))
-                    .shadow(radius: 2)
             }
-        }.frame(height: 130)
+        }
     }
     
     // MARK :- COMPONENTS
@@ -200,4 +165,5 @@ struct CoachHomeView: View {
 
 #Preview {
     CoachHomeView()
+        .environment(GeneralVM())
 }

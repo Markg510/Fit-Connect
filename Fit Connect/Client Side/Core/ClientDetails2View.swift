@@ -211,14 +211,8 @@ struct ClientDetails2View: View {
                     .padding(.bottom)
                     .padding(.bottom)
                     
-                Button {
-                    
-                } label: {
-                    Text("Create Account")
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.accent.gradient, in: .rect(cornerRadius: 16))
-                        .foregroundStyle(.white)
+                AppButton(title: "Create Account", img: "", priority: .high) {
+                    gvm.navPath.append("ChooseCoach")
                 }.padding(.bottom, 8)
                     .zIndex(-250)
             }
