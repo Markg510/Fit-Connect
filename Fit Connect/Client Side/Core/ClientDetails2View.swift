@@ -219,6 +219,8 @@ struct ClientDetails2View: View {
         }
         .padding()
             .background(.colorBackground)
+            .navigationTitle("Create Account 2")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

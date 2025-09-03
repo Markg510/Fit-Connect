@@ -53,7 +53,7 @@ struct DropdownMenu<T: Hashable & CaseIterable & RawRepresentable>: View {
                 
                 // Dropdown List
                 if showOptions {
-                    VStack {
+                    VStack(spacing: 8) {
                         ForEach(Array(T.allCases), id: \.self) { option in
                             Text(String(describing: option.rawValue).capitalized)
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -65,7 +65,6 @@ struct DropdownMenu<T: Hashable & CaseIterable & RawRepresentable>: View {
                                         requestChangeDropdown(showOptions ? .close : .open)
                                     }
                                 }
-                            
                         }
                     }.padding(.top, 8)
                 }
@@ -86,4 +85,6 @@ enum bcd: String, Hashable, CaseIterable { case b, c, d }
     @Previewable @State var open: bcd? = nil
     
     DropdownMenu(showOptions: .constant(false), selected: $selected, label: "Start") { _ in }
+    
+    DropdownMenu(showOptions: .constant(true), selected: $selected, label: "Start") { _ in }
 }

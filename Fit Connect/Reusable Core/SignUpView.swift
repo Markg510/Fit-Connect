@@ -75,6 +75,8 @@ struct SignUpView: View {
         }
         .padding()
             .background(.colorBackground)
+            .navigationTitle("Sign Up")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

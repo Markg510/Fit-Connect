@@ -157,6 +157,8 @@ struct ClientHomeView: View {
             .clipShape(.rect(cornerRadius: 16))
             .shadow(radius: 2)
             .padding(.bottom)
+            .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

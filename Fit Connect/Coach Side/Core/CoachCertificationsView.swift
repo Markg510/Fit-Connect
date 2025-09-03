@@ -33,6 +33,8 @@ struct CoachCertificationsView: View {
             }            
         }.padding()
             .background(.colorBackground)
+            .navigationTitle("Certifications")
+            .navigationBarTitleDisplayMode(.inline)
         
         
     }

@@ -15,21 +15,25 @@ struct CoachHomeView: View {
     @Environment(GeneralVM.self) private var gvm
     
     var body: some View {
-        VStack {
-            Spacer()
-            
-            dashboard()
-            
-            yourClients()
-            
-            savedContent()
-            
-            Spacer()
+        ScrollView(showsIndicators: false) {
+            VStack {
+                Spacer()
+                
+                dashboard()
+                
+                yourClients()
+                
+                savedContent()
+                
+                Spacer()
+            }
         }.padding()
             .background(.colorBackground)
+            .navigationTitle("Home")
+            .navigationBarTitleDisplayMode(.inline)
     }
     
-    /// MARK :- SUB VIEWS
+    // MARK : - SUB VIEWS
     
     @ViewBuilder
     func dashboard() -> some View {
@@ -140,26 +144,30 @@ struct CoachHomeView: View {
     // MARK :- COMPONENTS
     @ViewBuilder
     func clientItem(id: String, name: String, status: clientStatus) -> some View {
-        HStack {
-            Text(id)
-                .foregroundStyle(.textSecondary)
-            
-            Circle()
-                .fill(status == .new ? .colorConstructive : .colorDestructive)
-                .frame(width: 6, height: 6)
-                .opacity(status == .normal ? 0 : 1)
-                .padding(.horizontal, 8)
-            
-            Text(name)
-            
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.textSecondary)
-        }.padding(.horizontal)
-            .padding(.vertical, 8)
-            .background(.colorPrimary)
-            .clipShape(.rect(cornerRadius: 16))
+        Button {
+            gvm.navPath.append("CoachClient")
+        } label: {
+            HStack {
+                Text(id)
+                    .foregroundStyle(.textSecondary)
+                
+                Circle()
+                    .fill(status == .new ? .colorConstructive : .colorDestructive)
+                    .frame(width: 6, height: 6)
+                    .opacity(status == .normal ? 0 : 1)
+                    .padding(.horizontal, 8)
+                
+                Text(name)
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.textSecondary)
+            }.padding(.horizontal)
+                .padding(.vertical, 8)
+                .background(.colorPrimary)
+                .clipShape(.rect(cornerRadius: 16))
+        }.buttonStyle(.plain)
     }
 }
 

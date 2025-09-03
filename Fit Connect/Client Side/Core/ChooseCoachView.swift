@@ -29,9 +29,9 @@ struct ChooseCoachView: View {
                 coachItem(coachPic: .coach, name: "Mark George", experience: .fivePlusYears, speciality: .weightLoss)
             }.padding()
                 .contentMargins(5, for: .scrollIndicators)
-        }
-        
-            .background(.colorBackground)
+        }.background(.colorBackground)
+            .navigationTitle("Choose Coach")
+            .navigationBarTitleDisplayMode(.inline)
     }
     
     // MARK: - COMPONENTS

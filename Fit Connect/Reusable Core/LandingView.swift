@@ -96,6 +96,9 @@ struct LandingView: View {
                     } else if str == "CoachHome" {
                         CoachHomeView()
                             .environment(gvm)
+                    } else if str == "CoachClient" {
+                        CoachClientProfileView()
+                            .environment(gvm)
                     }
                 }
         }

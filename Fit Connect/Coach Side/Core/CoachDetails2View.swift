@@ -100,7 +100,7 @@ struct CoachDetails2View: View {
                     .font(.caption)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TextField("Passionate fitness coach helping clients achieve lastaing results through personalized training", text: $gymLocation, axis: .vertical)
+                TextField("Passionate fitness coach helping clients achieve lastaing results through personalized training", text: $introduction, axis: .vertical)
                     .lineLimit(1...3)
                     .padding(12)
                     .background(.colorPrimary)
@@ -116,6 +116,8 @@ struct CoachDetails2View: View {
             }
         }.padding()
             .background(.colorBackground)
+            .navigationTitle("Create Account 2")
+            .navigationBarTitleDisplayMode(.inline)
     }
 }
 

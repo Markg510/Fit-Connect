@@ -19,8 +19,13 @@ struct AppButton: View {
         Button {
            onPressed()
         } label: {
-            Label(title, systemImage: img)
-                .padding()
+            Group {
+                if img.isEmpty {
+                    Text(title)
+                } else {
+                    Label(title, systemImage: img)
+                }
+            }.padding()
                 .frame(maxWidth: .infinity, alignment: .center)
                 .background(priority == .high ? .accent : .colorPrimary)
                 .foregroundStyle(.white)

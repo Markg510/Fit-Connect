@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct CoachClientProfileView: View {
+    @State private var showMetricsSheet = false
+    
     var body: some View {
         VStack {
             Spacer()
@@ -23,6 +25,10 @@ struct CoachClientProfileView: View {
             Spacer()
         }.padding()
             .background(.colorBackground)
+            .sheet(isPresented: $showMetricsSheet) {
+                MetricsView()
+            }.navigationTitle("Client Profile")
+            .navigationBarTitleDisplayMode(.inline)
     }
     
     // MARK: - SUB VIEWS
@@ -59,11 +65,13 @@ struct CoachClientProfileView: View {
         detailItem(title: "Phone Number", value: "+20 128 957 9408")
         detailItem(title: "Client Code", value: "001")
         
-        detailButton(img: "chart.line.uptrend.xyaxis", title: "View Client Metrics")
+        detailButton(img: "chart.line.uptrend.xyaxis", title: "View Client Metrics") {
+            showMetricsSheet.toggle()
+        }
         
-        detailButton(img: "carrot.fill", title: "View Meal Plan")
+        detailButton(img: "carrot.fill", title: "View Meal Plan") {}
         
-        detailButton(img: "dumbbell.fill", title: "View Workout Plan")
+        detailButton(img: "dumbbell.fill", title: "View Workout Plan") {}
     }
     
     // MARK: - COMPONENTS
@@ -81,19 +89,30 @@ struct CoachClientProfileView: View {
     }
     
     @ViewBuilder
-    func detailButton(img: String, title: String) -> some View {
+    func detailButton(
+        img: String,
+        title: String,
+        onPressed: @escaping () -> Void
+    ) -> some View {
         Divider()
         
-        HStack {
-            Label("\(title):", systemImage: img)
-                .fontWeight(.medium)
-            
-            Spacer()
-            
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.textSecondary)
-        }.padding(.top, 8)
-            .padding(.bottom, img == "dumbbell.fill" ? 20 : 0)
+        Button(action: {
+            onPressed()
+        }) {
+            HStack {
+                Label("\(title):", systemImage: img)
+                    .fontWeight(.medium)
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundStyle(.textSecondary)
+            }
+        }
+        .padding(.top, 8)
+        .padding(.bottom, img == "dumbbell.fill" ? 20 : 0)
+        .contentShape(.rect)
+        .buttonStyle(.plain)
     }
 }
 
