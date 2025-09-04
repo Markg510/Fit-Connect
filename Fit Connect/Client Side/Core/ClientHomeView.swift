@@ -11,22 +11,34 @@ struct ClientHomeView: View {
     @Environment(GeneralVM.self) private var gvm
     
     var body: some View {
-        VStack {
-            Spacer()
+        TabView {
+            Tab("Home", systemImage: "house") {
+                VStack {
+                    Spacer()
+                    
+                    quote()
+                    
+                    todaysPlan()
+                    
+                    dailyGoals()
+                    
+                    AppButton(title: "View Profile", img: "person.fill", priority: .low) {
+                        
+                    }.padding(.bottom, 8)
+                    
+                    Spacer()
+                }.padding()
+                    .background(.colorBackground)
+                }
             
-            quote()
+            Tab("Workout", systemImage: "dumbbell") {
+                WorkoutView()
+            }
             
-            todaysPlan()
-            
-            dailyGoals()
-            
-            AppButton(title: "View Profile", img: "person.fill", priority: .low) {
-                
-            }.padding(.bottom, 8)
-            
-            Spacer()
-        }.padding()
-            .background(.colorBackground)
+            Tab("Meals", systemImage: "carrot.fill") {
+                MealsView()
+            }
+        }
     }
     
     // MARK: - SUB VIEWS
